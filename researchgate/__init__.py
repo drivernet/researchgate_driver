@@ -86,9 +86,10 @@ def to_location(i=0):
     
 
 
-
-
 records = []
+
+# field = 55
+# location = 255
 
 for field in range(325):
     data = to_field(field)
@@ -98,7 +99,11 @@ for field in range(325):
         data = to_location(location)
         records.append(data)
         
+len(records)
 
+from crawls import db
+
+#db['researchgate.net-statistics'].insert_many(records)
 
 #         records.append(    
 #             {'location': None,
