@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='researchgate_driver',
-    version='0.0.1',
+    version='0.0.2',
     description='Research Gate Social Net controller.',
     url='https://github.com/drivernet/researchgate_driver',
     author='Mindey',

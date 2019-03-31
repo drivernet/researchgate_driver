@@ -4,4 +4,4 @@ dist/
 data/
 *__pycache__*
 .ipynb_checkpoints/
-researchgate.egg-info/
+researchgate_driver.egg-info/
