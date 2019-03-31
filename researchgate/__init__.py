@@ -1,9 +1,9 @@
-from metadrive._selenium import get_driver
+from metadrive._selenium import get_drive
 from metadrive._selenium import ActionChains
 from selenium.webdriver.common.keys import Keys
 import bs4, time
 
-driver = get_driver(proxies={'socks_proxy': '127.0.0.1:9999'})
+driver = get_drive(proxies={'socks_proxy': '127.0.0.1:9999'})
 
 driver.get('https://www.researchgate.net')
 driver.get('https://www.researchgate.net/jobs/post/express/ExpressCheckoutJobSingleStep?wi=5c1e212db93ecda0422d9020&wf=express&cs=cover_')
@@ -24,7 +24,7 @@ def get_field(i=0):
     actions = ActionChains(driver)
     actions.send_keys(Keys.ENTER)
     actions.perform()
-    
+
 def to_field(i=0):
     while True:
         get_field(i)
@@ -39,15 +39,15 @@ def to_field(i=0):
 
     researchers = int(researchers.find('strong').text.replace(',',''))
     print(researchers)
-            
+
     statistics = soup.find('div', {
         'class': 'job-reach-tool__stats-results'}).find_all('strong')
-        
-    statistics = {item[1]: item[0].text 
+
+    statistics = {item[1]: item[0].text
                   for item in zip(statistics, ['senior', 'experienced', 'early'])}
-        
+
     statistics.update({'count': researchers, 'field': field, 'location': location})
-    
+
     return statistics
 
 def get_location(i=0):
@@ -59,7 +59,7 @@ def get_location(i=0):
     actions = ActionChains(driver)
     actions.send_keys(Keys.ENTER)
     actions.perform()
-    
+
 def to_location(i=0):
     while True:
         get_location(i)
@@ -70,20 +70,20 @@ def to_location(i=0):
 
         if location:
             break
-    
+
     researchers = int(researchers.find('strong').text.replace(',',''))
     print(researchers)
-            
+
     statistics = soup.find('div', {
         'class': 'job-reach-tool__stats-results'}).find_all('strong')
-        
-    statistics = {item[1]: item[0].text 
+
+    statistics = {item[1]: item[0].text
                   for item in zip(statistics, ['senior', 'experienced', 'early'])}
-        
+
     statistics.update({'count': researchers, 'field': field, 'location': location})
-    
+
     return statistics
-    
+
 
 
 records = []
@@ -94,18 +94,18 @@ records = []
 for field in range(325):
     data = to_field(field)
     records.append(data)
-    
+
     for location in range(286):
         data = to_location(location)
         records.append(data)
-        
+
 len(records)
 
 from crawls import db
 
 #db['researchgate.net-statistics'].insert_many(records)
 
-#         records.append(    
+#         records.append(
 #             {'location': None,
 #              'field': None,
 #             'researchers': {
@@ -115,4 +115,3 @@ from crawls import db
 #                 'early_career_pct': None
 #             }}
 #         )
-        
